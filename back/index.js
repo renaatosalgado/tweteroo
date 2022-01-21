@@ -1,16 +1,25 @@
 import express, { json } from "express";
+import cors from "cors";
 
 const server = express();
 server.use(json());
+server.use(cors())
 
 server.listen(5000);
 
-const user = { username: "", avatar: "" };
+let user = [];
 const tweets = [];
 
 server.post("/sign-up", (req, res) => {
-  user.username = req.body.username;
-  user.avatar = req.body.avatar;
+  const signUpUser = req.body;
+
+  if (user.length === 0) {
+    user.push(signUpUser);
+  } else {
+    user = [signUpUser];
+  }
 
   res.send("OK");
 });
+
+
