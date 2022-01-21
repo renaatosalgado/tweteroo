@@ -11,22 +11,31 @@ let user = [];
 const tweets = [];
 
 server.post("/sign-up", (req, res) => {
-  const signUpUser = req.body;
+  if (req.body.avatar !== "" && req.body.username !== "") {
+    const signUpUser = req.body;
 
-  if (user.length === 0) {
-    user.push(signUpUser);
+    if (user.length === 0) {
+      user.push(signUpUser);
+    } else {
+      user = [signUpUser];
+    }
   } else {
-    user = [signUpUser];
+    res.status(400).send("Todos os campos são obrigatórios!");
   }
 
-  res.send("OK");
+  res.status(201).send("OK");
 });
 
 server.post("/tweets", (req, res) => {
-  const tweet = req.body;
-  tweets.push({ ...tweet, avatar: user[0].avatar });
+  console.log(req.body);
+  if (req.body.username !== "" && req.body.tweet !== "") {
+    const tweet = req.body;
+    tweets.push({ ...tweet, avatar: user[0].avatar });
+  } else {
+    res.status(400).send("Todos os campos são obrigatórios!");
+  }
 
-  res.send("OK");
+  res.status(201).send("OK");
 });
 
 server.get("/tweets", (req, res) => {
