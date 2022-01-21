@@ -3,7 +3,7 @@ import cors from "cors";
 
 const server = express();
 server.use(json());
-server.use(cors())
+server.use(cors());
 
 server.listen(5000);
 
@@ -23,10 +23,12 @@ server.post("/sign-up", (req, res) => {
 });
 
 server.post("/tweets", (req, res) => {
-    const tweet = req.body;
-    tweets.push({...tweet, avatar: user[0].avatar});
-  
-    res.send("OK");
-  });
+  const tweet = req.body;
+  tweets.push({ ...tweet, avatar: user[0].avatar });
 
+  res.send("OK");
+});
 
+server.get("/tweets", (req, res) => {
+  res.send(tweets);
+});
