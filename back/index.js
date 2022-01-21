@@ -22,4 +22,11 @@ server.post("/sign-up", (req, res) => {
   res.send("OK");
 });
 
+server.post("/tweets", (req, res) => {
+    const tweet = req.body;
+    tweets.push({...tweet, avatar: user[0].avatar});
+  
+    res.send("OK");
+  });
+
 
