@@ -11,7 +11,12 @@ let user = [];
 const tweets = [];
 
 server.post("/sign-up", (req, res) => {
-  if (req.body.avatar !== "" && req.body.username !== "") {
+  if (
+    req.body.avatar !== "" &&
+    req.body.username !== "" &&
+    req.body.avatar &&
+    req.body.username
+  ) {
     const signUpUser = req.body;
 
     if (user.length === 0) {
@@ -27,8 +32,12 @@ server.post("/sign-up", (req, res) => {
 });
 
 server.post("/tweets", (req, res) => {
-  console.log(req.body);
-  if (req.body.username !== "" && req.body.tweet !== "") {
+  if (
+    req.body.username !== "" &&
+    req.body.tweet !== "" &&
+    req.body.username &&
+    req.body.tweet
+  ) {
     const tweet = req.body;
     tweets.push({ ...tweet, avatar: user[0].avatar });
   } else {
